@@ -2,7 +2,8 @@ public class Game {
 
     public static void main(String[] args) {
         GameScreen screen = new GameScreen();
-        screen.draw();
+        Ground ground = new Ground();
+        screen.draw(ground);
     }
 
 
