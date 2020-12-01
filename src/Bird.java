@@ -1,4 +1,4 @@
-public class Bird implements Obstacle{
+public class Bird implements Obstacle {
 
     public Bird(){
 

@@ -1,4 +1,4 @@
-public class Stump implements Obstacle{
+public class Stump implements Obstacle {
 
 
     public Stump(){
