@@ -1,8 +1,6 @@
-import java.util.Timer;
-
 public class Game {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         GameScreen screen = new GameScreen();
         Ground ground = new Ground();
 
@@ -12,6 +10,7 @@ public class Game {
 
     public static void gameLoop(GameScreen screen, Ground ground){
         boolean run = true;
+        screen.draw(ground);
 
         while(run){
             screen.draw(ground);

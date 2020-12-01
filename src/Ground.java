@@ -13,7 +13,7 @@ public class Ground implements ActionListener{
     private ImageIcon ground2;
     private JLabel label2;
 
-    Timer tm = new Timer(100,this);
+    Timer tm = new Timer(500,this);
 
     //  Size of the ground image was too short so I created 2 labels with the same ground image
     //  and stuck them together and put the labels in an array that will be sent to the game screen
@@ -41,7 +41,7 @@ public class Ground implements ActionListener{
     public ArrayList<JLabel> getLabels(){
         // by changing the x positions it will make the ground look like its moving
         labels.get(0).setLocation(x1, 110);
-        labels.get(1).setLocation(x2, 100);
+        labels.get(1).setLocation(x2, 110);
         return labels;
     }
 
