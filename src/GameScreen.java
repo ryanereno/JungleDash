@@ -10,7 +10,7 @@ public class GameScreen {
     // We would paste the objects into this method to draw them?
     // so eventually this method will take in the objects of our games
     // as parameters so we could draw them
-    public GameScreen(){
+    public void draw(){
 
         //  background height = 322
         //  background width = 650
