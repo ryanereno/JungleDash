@@ -5,8 +5,12 @@ public class Stump implements Obstacle{
 
         // These are just random values for now until we can
         // see where it will be placed in the game
-        int xPos = 1000;
-        int YPos = 1000;    //Ypos should remain the same since stump doesnt go up or down
+
+        //  XPos should start at 1300 (100 longer than the width of our game screen
+        //  because it will give it the affect of the object coming from off screen
+        //  into our screen
+        int xPos = 1300;
+        int YPos = 600;     //  Ypos should remain the same since stump doesnt go up or down
     }
 
 

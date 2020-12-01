@@ -4,8 +4,12 @@ public class Bird implements Obstacle{
 
         // These are just random values for now until we can
         // see where it will be placed in the game
-        int xPos = 1000;
-        int YPos = 800;    //YPos should remain the same since bird doesnt go up or down
+
+        //  XPos should start at 1300 (100 longer than the width of our game screen
+        //  because it will give it the affect of the object coming from off screen
+        //  into our screen
+        int xPos = 1200;
+        int YPos = 300;    //YPos should remain the same since bird doesnt go up or down
     }
 
     @Override
