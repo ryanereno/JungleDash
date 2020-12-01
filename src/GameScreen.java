@@ -37,6 +37,8 @@ public class GameScreen{
 
     }
 
+
+    //  this method would draw the bird, stump, and player in the future
     public void draw(Ground ground){
 
         // this adds all the ground lables into our layeredpane
@@ -46,7 +48,7 @@ public class GameScreen{
             layeredPane.add(ground.getLabels().get(i), JLayeredPane.DRAG_LAYER);
         }
 
-        //This repaints the ground
+        //This repaints the screens with the changes
         SwingUtilities.updateComponentTreeUI(frame);
 
 
