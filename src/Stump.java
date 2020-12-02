@@ -21,21 +21,7 @@ public class Stump implements Obstacle {
 
     @Override
     public void create() {
-
     }
 
-    @Override
-    public void getXPos() {
 
-    }
-
-    @Override
-    public void getYPos() {
-
-    }
-
-    @Override
-    public void remove() {
-
-    }
 }

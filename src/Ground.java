@@ -27,6 +27,7 @@ public class Ground extends JPanel implements ActionListener{
         tm.start();
     }
 
+    //Displays the background and ground on this label
     public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
 
@@ -69,4 +70,5 @@ public class Ground extends JPanel implements ActionListener{
        repaint();
 
     }
+
 }

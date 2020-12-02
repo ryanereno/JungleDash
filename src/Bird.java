@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class Bird extends JPanel implements ActionListener {
 
-    int xPos = 650;
+    int xPos = 675;
     int yPos = 115;
     final int VELOCITY = 3;
 
@@ -26,6 +26,7 @@ public class Bird extends JPanel implements ActionListener {
         tm.start();
     }
 
+    //Draws the whatever Bird image is hold in Temp
     public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
 
@@ -57,5 +58,13 @@ public class Bird extends JPanel implements ActionListener {
 
         repaint();
 
+    }
+
+    //  Tried to use this by calling it in the Game class
+    //  to try and get the bird to spawn again.
+    //  Not really sure how tho
+    public void create(){
+        xPos = 675;
+        repaint();
     }
 }
