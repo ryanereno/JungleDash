@@ -15,11 +15,6 @@ public class Stump implements Obstacle {
 
 
     @Override
-    public void getObstacle() {
-
-    }
-
-    @Override
     public void hasCollided() {
 
     }

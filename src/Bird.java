@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 
 public class Bird extends JPanel implements ActionListener {
 
     int xPos = 650;
     int yPos = 115;
     final int VELOCITY = 3;
+
+    //  different bird images for animation
     Image Birds1 = new ImageIcon(this.getClass().getResource("bird1.png")).getImage();
     Image Birds2 = new ImageIcon(this.getClass().getResource("bird2.png")).getImage();
     Image Birds3 = new ImageIcon(this.getClass().getResource("bird3.png")).getImage();
@@ -38,6 +39,8 @@ public class Bird extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         xPos -= VELOCITY;
+
+        //This algorithm helps cycle through the bird images
         img_count ++;
         if(img_count < animation_time)
             Temp = Birds1;
