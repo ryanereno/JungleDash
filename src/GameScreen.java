@@ -22,10 +22,10 @@ public class GameScreen extends JFrame{
         pane.setBounds(0,0,650,322);
 
         //  Default_Layer is the very back of the JLayeredPane
-        pane.add(ground, JLayeredPane.DEFAULT_LAYER);
+        pane.add(ground);
 
         //  Drag_Layer is the very front
-        pane.add(bird, JLayeredPane.DRAG_LAYER);
+        pane.add(bird);
 
 
         new JFrame("Jungle Dash!");
