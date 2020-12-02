@@ -8,8 +8,19 @@ public class Game {
         //  eventually take in all the UI objects are arguments
         new GameScreen(ground, bird);
 
+        boolean run = true;
+
+        //  this is the gameloop. It should keep running until
+        //  user collides with an object. Then it should display
+        //  game ending screen with score
+        while(run){
+
+        }
+
 
     }
+
+
 
 
 
