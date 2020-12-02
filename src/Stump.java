@@ -1,18 +1,34 @@
-public class Stump implements Obstacle {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class Stump extends JPanel implements ActionListener, Obstacle {
+
+
+    int xPos = 675;
+    int yPos = 210;
+    final int VELOCITY = 3;
+
+    Image Stump;
+    Timer tm;
 
     public Stump(){
+        Stump = new ImageIcon(this.getClass().getResource("stump.png")).getImage();
 
-        // These are just random values for now until we can
-        // see where it will be placed in the game
+        tm = new Timer(10,this);
+        tm.start();
 
-        //  XPos should start at 700 (50 longer than the width of our game screen
-        //  because it will give it the affect of the object coming from off screen
-        //  into our screen
-        int xPos = 700;
-        int YPos = 250;     //  Ypos should remain the same since stump doesnt go up or down
     }
 
+    public void paint(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.drawImage(Stump, xPos, yPos, null);
+
+
+
+    }
 
     @Override
     public void hasCollided() {
@@ -24,4 +40,9 @@ public class Stump implements Obstacle {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        xPos -= VELOCITY;
+        repaint();
+    }
 }

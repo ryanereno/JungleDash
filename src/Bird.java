@@ -22,7 +22,7 @@ public class Bird extends JPanel implements ActionListener, Obstacle {
 
         Temp = Birds1;
 
-        tm = new Timer(5,this);
+        tm = new Timer(10,this);
         tm.start();
     }
 
