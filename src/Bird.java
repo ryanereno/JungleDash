@@ -6,17 +6,17 @@ import java.awt.event.ActionListener;
 public class Bird extends JPanel implements ActionListener, Obstacle {
 
     int xPos = 675;
-    int yPos = 115;
+    int yPos = 210;
+    int img_count = 0;
     final int VELOCITY = 3;
-
+    final int ANIMATION_TIME = 8;
     //  different bird images for animation
     Image Birds1 = new ImageIcon(this.getClass().getResource("bird1.png")).getImage();
     Image Birds2 = new ImageIcon(this.getClass().getResource("bird2.png")).getImage();
     Image Birds3 = new ImageIcon(this.getClass().getResource("bird3.png")).getImage();
     Image Temp;
     Timer tm;
-    int img_count = 0;
-    int animation_time = 8;
+
 
     public Bird(){
 
@@ -43,15 +43,15 @@ public class Bird extends JPanel implements ActionListener, Obstacle {
 
         //This algorithm helps cycle through the bird images
         img_count ++;
-        if(img_count < animation_time)
+        if(img_count < ANIMATION_TIME)
             Temp = Birds1;
-        else if(img_count < animation_time * 2)
+        else if(img_count < ANIMATION_TIME * 2)
             Temp = Birds2;
-        else if(img_count < animation_time * 3)
+        else if(img_count < ANIMATION_TIME * 3)
             Temp = Birds3;
-        else if(img_count < animation_time * 4)
+        else if(img_count < ANIMATION_TIME * 4)
             Temp = Birds2;
-        else if (img_count < animation_time * 4 + 1) {
+        else if (img_count < ANIMATION_TIME * 4 + 1) {
             Temp = Birds1;
             img_count = 0;
         }
