@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Ground extends JPanel implements ActionListener{
 
@@ -13,20 +12,18 @@ public class Ground extends JPanel implements ActionListener{
     int x2 = 384;
     int x3 = 768;
     int x4 = 1152;
-    final int VELOCITY = 10;
+    final int VELOCITY = 3;
     Image ground;
     Image background;
 
 
     Timer tm;
 
-
-    public ArrayList<JLabel> labels;
     public Ground(){
         ground = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();
         background = new ImageIcon(this.getClass().getResource("Background.png")).getImage();
 
-        tm = new Timer(40, this);
+        tm = new Timer(10, this);
         tm.start();
     }
 
@@ -34,6 +31,9 @@ public class Ground extends JPanel implements ActionListener{
         Graphics2D g2 = (Graphics2D) g;
 
         g2.drawImage(background, 0, 0,null);
+
+        //  Theres 4 ground images because i connected them all together
+        //  to make it animate and then keep repainting it at the end of the screen
         g2.drawImage(ground, x1, 240, null);
         g2.drawImage(ground, x2, 240, null);
         g2.drawImage(ground, x3, 240, null);
@@ -52,9 +52,8 @@ public class Ground extends JPanel implements ActionListener{
 
         int width = ground.getWidth(null);
 
-        //  I think -325 is the edge of the screen on the left side
-        //  so if the ground leaves the screen it should be redrawn on
-        // on the right side to give it the illusion of moving
+        //  I think -384 is when 1 entire ground object
+        //  is no longer seen
        if(x1 + width < -384)
             x1 = x4 + width;
 

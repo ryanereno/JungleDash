@@ -1,44 +1,58 @@
-public class Bird implements Obstacle {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+
+public class Bird extends JPanel implements ActionListener {
+
+    int xPos = 650;
+    int yPos = 115;
+    final int VELOCITY = 3;
+    Image Birds1 = new ImageIcon(this.getClass().getResource("bird1.png")).getImage();
+    Image Birds2 = new ImageIcon(this.getClass().getResource("bird2.png")).getImage();
+    Image Birds3 = new ImageIcon(this.getClass().getResource("bird3.png")).getImage();
+    Image Temp;
+    Timer tm;
+    int img_count = 0;
+    int animation_time = 8;
 
     public Bird(){
 
-        // These are just random values for now until we can
-        // see where it will be placed in the game
+        Temp = Birds1;
 
-        //  XPos should start at 700 (50 longer than the width of our game screen
-        //  because it will give it the affect of the object coming from off screen
-        //  into our screen
-        int xPos = 700;
-        int YPos = 120;    //YPos should remain the same since bird doesnt go up or down
+        tm = new Timer(5,this);
+        tm.start();
     }
 
-    @Override
-    public void getObstacle() {
+    public void paint(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
 
-    }
+        g2.drawImage(Temp, xPos, yPos, null);
 
-    @Override
-    public void hasCollided() {
+
 
     }
 
-    @Override
-    public void create() {
-
-    }
 
     @Override
-    public void getXPos() {
+    public void actionPerformed(ActionEvent e) {
+        xPos -= VELOCITY;
+        img_count ++;
+        if(img_count < animation_time)
+            Temp = Birds1;
+        else if(img_count < animation_time * 2)
+            Temp = Birds2;
+        else if(img_count < animation_time * 3)
+            Temp = Birds3;
+        else if(img_count < animation_time * 4)
+            Temp = Birds2;
+        else if (img_count < animation_time * 4 + 1) {
+            Temp = Birds1;
+            img_count = 0;
+        }
 
-    }
-
-    @Override
-    public void getYPos() {
-
-    }
-
-    @Override
-    public void remove() {
+        repaint();
 
     }
 }
