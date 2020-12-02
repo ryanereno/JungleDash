@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Bird extends JPanel implements ActionListener {
+public class Bird extends JPanel implements ActionListener, Obstacle {
 
     int xPos = 675;
     int yPos = 115;
@@ -57,6 +57,11 @@ public class Bird extends JPanel implements ActionListener {
         }
 
         repaint();
+
+    }
+
+    @Override
+    public void hasCollided() {
 
     }
 

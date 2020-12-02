@@ -20,11 +20,7 @@ public class GameScreen extends JFrame{
         //  JLayeredPane allows you to layer JLabels on each other.
         JLayeredPane pane = new JLayeredPane();
         pane.setBounds(0,0,650,322);
-
-        //  Default_Layer is the very back of the JLayeredPane
         pane.add(ground);
-
-        //  Drag_Layer is the very front
         pane.add(bird);
 
 
