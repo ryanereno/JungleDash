@@ -1,48 +1,42 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
-public class Stump extends JPanel implements ActionListener, Obstacle {
+import javax.swing.ImageIcon;
 
+public class Stump implements Obstacle {
+	private int x;
+	private int y;
 
-    int xPos = 680;
-    int yPos = 210;
-    final int VELOCITY = 4;
+	public Stump() {
+		x = 680;
+		y = 210;
+	}
 
-    Image Stump;
-    Timer tm;
+	@Override
+	public boolean outOfBounds() {
+		if (x < -40) { // if most of the stump is offscreen, it is out of bounds
+			return true;
+		}
+		return false;
+	}
 
-    public Stump(){
-        Stump = new ImageIcon(this.getClass().getResource("stump.png")).getImage();
+	@Override
+	public void draw(Graphics g) {
+		Image stumpImage = new ImageIcon(this.getClass().getResource("stump.png")).getImage();
+		g.drawImage(stumpImage, x, y, null);
+	}
 
-        tm = new Timer(20,this);
-        tm.start();
+	@Override
+	public void update() {
+		x -= 28;
+	}
 
-    }
-
-    public void paint(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-
-        g2.drawImage(Stump, xPos, yPos, null);
-
-
-
-    }
-
-    @Override
-    public void hasCollided() {
-
-    }
-
-    @Override
-    public void create() {
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        xPos -= VELOCITY;
-        repaint();
-    }
+	public boolean checkCollision(int playerX, int playerY) {
+		if ((Math.abs(playerX - x)) <= 24 && (playerY > y)) { // if player's model is in the hitbox of stump,
+		                								      // they collided
+			return true;
+		}
+		return false;
+	}
 }

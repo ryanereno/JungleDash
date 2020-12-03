@@ -1,74 +1,33 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Image;
 
-public class Ground extends JPanel implements ActionListener{
+import javax.swing.ImageIcon;
 
+public class Ground {
+	private int x;
+	private int y;
 
-    //  x is the starting position for each ground
-    //  it increments by 384 because that is the width of the ground image
-    int x1 = 0;
-    int x2 = 384;
-    int x3 = 768;
-    int x4 = 1152;
-    final int VELOCITY = 4;
-    Image ground;
-    Image background;
+	public Ground() {
+		x = 0;
+		y = 0;
+	}
 
+	public void update() {
+		x += 12; // add 12 to x (1/128 the size of the entire ground). Note, number is pretty
+					// arbitrary, just there to make ground animation look nice
+		if (x >= 1152) { // If x exceeds the x-coordinate of the 4th ground image, reset it to 0
+			x = 0;
+		}
+	}
 
-    Timer tm;
-
-    public Ground(){
-        ground = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();
-        background = new ImageIcon(this.getClass().getResource("Background.png")).getImage();
-
-        tm = new Timer(20, this);
-        tm.start();
-    }
-
-    //Displays the background and ground on this label
-    public void paint(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-
-        g2.drawImage(background, 0, 0,null);
-
-        //  Theres 4 ground images because i connected them all together
-        //  to make it animate and then keep repainting it at the end of the screen
-        g2.drawImage(ground, x1, 240, null);
-        g2.drawImage(ground, x2, 240, null);
-        g2.drawImage(ground, x3, 240, null);
-        g2.drawImage(ground, x4, 240, null);
-
-
-    }
-
-
-    //  this method animates the ground
-    public void actionPerformed(ActionEvent e){
-        x1 -= VELOCITY;
-        x2 -= VELOCITY;
-        x3 -= VELOCITY;
-        x4 -= VELOCITY;
-
-        int width = ground.getWidth(null);
-
-        //  I think -384 is when 1 entire ground object
-        //  is no longer seen
-       if(x1 + width < -384)
-            x1 = x4 + width;
-
-       if(x2 + width < -384)
-            x2 = x1 + width;
-
-       if(x3 + width < -384)
-            x3 = x2 + width;
-
-       if(x4 + width < -384)
-            x4 = x3 + width;
-
-       repaint();
-
-    }
-
+	public void draw(Graphics g) {
+		Image groundImage = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();
+		Image backgroundImage = new ImageIcon(this.getClass().getResource("Background.png")).getImage();
+		g.drawImage(backgroundImage, 0, 0, null);
+		g.drawImage(groundImage, 0 - x, 240, null);
+		g.drawImage(groundImage, 384 - x, 240, null);
+		g.drawImage(groundImage, 768 - x, 240, null);
+		g.drawImage(groundImage, 1152 - x, 240, null);
+		g.drawImage(groundImage, 1536 - x, 240, null);
+	}
 }
