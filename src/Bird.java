@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 public class Bird extends JPanel implements ActionListener, Obstacle {
 
-    int xPos = 675;
+    int xPos = 680;
     int yPos = 210;
     int img_count = 0;
-    final int VELOCITY = 3;
+    final int VELOCITY = 4;
     final int ANIMATION_TIME = 8;
     //  different bird images for animation
     Image Birds1 = new ImageIcon(this.getClass().getResource("bird1.png")).getImage();
@@ -22,7 +22,7 @@ public class Bird extends JPanel implements ActionListener, Obstacle {
 
         Temp = Birds1;
 
-        tm = new Timer(10,this);
+        tm = new Timer(20,this);
         tm.start();
     }
 

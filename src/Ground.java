@@ -12,7 +12,7 @@ public class Ground extends JPanel implements ActionListener{
     int x2 = 384;
     int x3 = 768;
     int x4 = 1152;
-    final int VELOCITY = 3;
+    final int VELOCITY = 4;
     Image ground;
     Image background;
 
@@ -23,7 +23,7 @@ public class Ground extends JPanel implements ActionListener{
         ground = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();
         background = new ImageIcon(this.getClass().getResource("Background.png")).getImage();
 
-        tm = new Timer(10, this);
+        tm = new Timer(20, this);
         tm.start();
     }
 

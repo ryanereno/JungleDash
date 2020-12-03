@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 public class Stump extends JPanel implements ActionListener, Obstacle {
 
 
-    int xPos = 675;
+    int xPos = 680;
     int yPos = 210;
-    final int VELOCITY = 3;
+    final int VELOCITY = 4;
 
     Image Stump;
     Timer tm;
@@ -16,7 +16,7 @@ public class Stump extends JPanel implements ActionListener, Obstacle {
     public Stump(){
         Stump = new ImageIcon(this.getClass().getResource("stump.png")).getImage();
 
-        tm = new Timer(10,this);
+        tm = new Timer(20,this);
         tm.start();
 
     }
