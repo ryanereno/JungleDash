@@ -1,14 +1,8 @@
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 // control class
 public class GameManager {
@@ -27,6 +21,13 @@ public class GameManager {
 	public void playerLand() {
 		p.land();
 	}
+
+	public void playerDuck() { p.duck(); }
+
+	public void playerStand() {
+		p.stand();
+	}
+
 
 	public void update() {
 		for (Obstacle obs : obstacles) {

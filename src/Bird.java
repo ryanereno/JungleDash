@@ -14,7 +14,7 @@ public class Bird implements Obstacle {
 
 	public Bird() {
 		x = 680;
-		y = 190;
+		y = 208;
 		animationIndex = 1;
 	}
 
@@ -49,8 +49,8 @@ public class Bird implements Obstacle {
 	}
 
 	public boolean checkCollision(int playerX, int playerY) {
-		if ((Math.abs(playerX - x)) <= 24 && (playerY < y)) { // if player's model is in the hitbox of bird,
-		                								      // they collided
+		if ((Math.abs(playerX - x)) <= 24 && (playerY-10 < y)) { // if player's model is in the hitbox of bird,
+			// they collided
 			return true;
 		}
 		return false;

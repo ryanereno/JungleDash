@@ -9,6 +9,8 @@ public class Player {
 	private int y;
 	private boolean running;
 	private boolean dead;
+	private boolean duck;
+	private boolean jump;
 	private int animationIndex;  // keeps track of what running animation we currently have
 	Image runPlayer1 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run1.png")).getImage();
 	Image runPlayer2 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run2.png")).getImage();
@@ -16,9 +18,13 @@ public class Player {
 	Image runPlayer4 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run4.png")).getImage();
 	Image jumpPlayer1 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_jump1.png")).getImage();
 	Image deadPlayer = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_death1.png")).getImage();
+	Image duckPlayer = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_death2.png")).getImage();
+
 	public Player() {
 		running = true;
 		dead = false;
+		jump = false;
+		duck = false;
 		x = 10;
 		y = 213;
 		animationIndex = 1;
@@ -33,12 +39,24 @@ public class Player {
 		return y;
 	}
 	public void jump() {
-		running = false;		
+		running = false;
+		jump = true;
 		y = 180;				// After jumping, change the player's height
 	}
 	public void land() {
 		running = true;
+		jump = false;
 		y = 213;				// After player finishes jumping, set y coordinate back to normal
+	}
+	public void duck(){
+		running = false;
+		duck = true;
+		y = 220;				// After ducking, change players height
+	}
+	public void stand(){
+		running = true;
+		duck = false;
+		y = 213;				// When player stands back up, set y coordinate back to normal
 	}
 	public void die() {
 		dead = true;
@@ -68,8 +86,11 @@ public class Player {
 		else if (dead) {
 			g.drawImage(deadPlayer, getX(), getY() , null);
 		}
-		else {
+		else if(jump) {
 			g.drawImage(jumpPlayer1, getX(), getY(), null);				// if player is not dead or running, they are jumping
+		}
+		else if(duck){
+			g.drawImage(duckPlayer, getX(), getY(), null);
 		}
 		
 	}

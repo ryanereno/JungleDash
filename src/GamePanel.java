@@ -105,6 +105,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			        400
 			);
 		}
+		if(e.getKeyCode() == KeyEvent.VK_S){
+			manager.playerDuck();
+			new java.util.Timer().schedule(
+					new java.util.TimerTask(){
+						@Override
+						public void run(){
+							manager.playerStand();
+						}
+					},400
+			);
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
