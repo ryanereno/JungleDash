@@ -9,8 +9,8 @@ public class Player {
 	private int y;
 	private boolean running;
 	private boolean dead;
-	private boolean duck;
-	private boolean jump;
+	private boolean ducking;
+	private boolean jumping;
 	private int animationIndex;  // keeps track of what running animation we currently have
 	Image runPlayer1 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run1.png")).getImage();
 	Image runPlayer2 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run2.png")).getImage();
@@ -23,8 +23,8 @@ public class Player {
 	public Player() {
 		running = true;
 		dead = false;
-		jump = false;
-		duck = false;
+		jumping = false;
+		ducking = false;
 		x = 10;
 		y = 213;
 		animationIndex = 1;
@@ -38,32 +38,32 @@ public class Player {
 	public int getY() {
 		return y;
 	}
+	public void die() { dead = true; }
+	public boolean isDead() { return dead; }
+
+	// These are used for our JUnit testing
+	public boolean isRunning(){return running;}
+	public boolean isDucking(){return ducking;}
+	public boolean isJumping(){return jumping;}
+
 	public void jump() {
 		running = false;
-		jump = true;
+		jumping = true;
 		y = 180;				// After jumping, change the player's height
 	}
-	public void land() {
+	public void defaultPosition() {
 		running = true;
-		jump = false;
+		jumping = false;
+		ducking = false;
 		y = 213;				// After player finishes jumping, set y coordinate back to normal
 	}
 	public void duck(){
 		running = false;
-		duck = true;
+		ducking = true;
 		y = 220;				// After ducking, change players height
 	}
-	public void stand(){
-		running = true;
-		duck = false;
-		y = 213;				// When player stands back up, set y coordinate back to normal
-	}
-	public void die() {
-		dead = true;
-	}
-	public boolean isDead() {
-		return dead;
-	}
+
+
 	public void draw(Graphics g) {
 		if(running) {
 			if(animationIndex == 1) {
@@ -86,10 +86,10 @@ public class Player {
 		else if (dead) {
 			g.drawImage(deadPlayer, getX(), getY() , null);
 		}
-		else if(jump) {
+		else if(jumping) {
 			g.drawImage(jumpPlayer1, getX(), getY(), null);				// if player is not dead or running, they are jumping
 		}
-		else if(duck){
+		else if(ducking){
 			g.drawImage(duckPlayer, getX(), getY(), null);
 		}
 		

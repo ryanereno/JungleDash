@@ -18,16 +18,11 @@ public class GameManager {
 		p.jump();
 	}
 
-	public void playerLand() {
-		p.land();
+	public void playerDefault() {
+		p.defaultPosition();
 	}
 
 	public void playerDuck() { p.duck(); }
-
-	public void playerStand() {
-		p.stand();
-	}
-
 
 	public void update() {
 		for (Obstacle obs : obstacles) {

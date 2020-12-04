@@ -15,7 +15,7 @@ public class Stump implements Obstacle {
 
 	@Override
 	public boolean outOfBounds() {
-		if (x < -40) { // if most of the stump is offscreen, it is out of bounds
+		if (x < -20) { // if most of the stump is offscreen, it is out of bounds
 			return true;
 		}
 		return false;
@@ -39,4 +39,8 @@ public class Stump implements Obstacle {
 		}
 		return false;
 	}
+
+	public int getX(){ return x;}			// used for JUnit testing
+	public int getY(){ return y;}			// used for JUnit testing
+	public void setX(int x){ this.x = x;}	// used for JUnit testing
 }

@@ -55,4 +55,8 @@ public class Bird implements Obstacle {
 		}
 		return false;
 	}
+
+	public int getX(){ return x;}			// used for JUnit testing
+	public int getY(){return y;}			// used for JUnit testing
+	public void setX(int x){ this.x = x;}	// used for JUnit testing
 }

@@ -99,7 +99,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			        new java.util.TimerTask() {
 			            @Override
 			            public void run() {
-			            	manager.playerLand();
+			            	manager.playerDefault();
 			            }
 			        }, 
 			        400
@@ -111,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					new java.util.TimerTask(){
 						@Override
 						public void run(){
-							manager.playerStand();
+							manager.playerDefault();
 						}
 					},400
 			);
