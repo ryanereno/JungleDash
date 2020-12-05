@@ -23,13 +23,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		this.p = p;
 		this.manager = manager;
 		this.ground= ground;
+	}
+
+	// These lines of code were originally in the GamePanel constructor, but that made the game start once the panel was
+	// created. Moving it here allows the GamePanel to be made without having the game to start instantly
+	public void startGame(){
 		score = 0;
 		displayDeath = false;
 		thread = new Thread(this);
 		thread.start();
 		obstacleGeneration();
-		
 	}
+
 	public void obstacleGeneration() {
 		new java.util.Timer().schedule( 
 		        new java.util.TimerTask() {
@@ -48,13 +53,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		ground.draw(g);
 		p.draw(g);
 		manager.draw(g);
-	    g.setColor(Color.RED);
+	    g.setColor(Color.WHITE);
 	    g.setFont(new Font("Serif", Font.BOLD, 25));
 	    g.drawString("Score: " + Integer.toString(score), 500, 30);		// display score
 	    if(displayDeath) {												// display death screen
-	    	g.setColor(Color.WHITE);
 	 	    g.setFont(new Font("Serif", Font.BOLD, 35));
 	 	    g.drawString("You Died", 245, 90);
+
+			g.setFont(new Font("Serif", Font.BOLD, 20));
+			g.drawString("Press Enter to play again", 205, 120);
+			g.drawString("or Backspace to quit", 227, 145);
 	    }
 	}
 	public void updateGame() {
@@ -68,6 +76,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void deathScreen() {
 		displayDeath = true;
 		repaint();
+	}
+
+	//Used to restart the game
+	public void resetPanel() {
+		manager.resetGame();
+		displayDeath = false;
+		score = 0;
+		thread = new Thread(this);
+		thread.start();
 	}
 	@Override
 	public void run() {
@@ -115,6 +132,26 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 						}
 					},400
 			);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			/*
+				Something interesting to note when the if-statement is not added: If Enter is pressed in the middle of
+				the game, the game resets, but it goes faster. If you press Enter multiple times, the game goes even
+				faster. The program may crash sometimes when Enter is pressed multiple times.
+
+				The if-statement was added to keep the game consistent with its speed, but it could be taken out to
+				allow the user to increase the speed (and therefore difficulty). It may be risky to do this since the
+				program can crash in some cases.
+			 */
+			if(p.isDead()) {
+				resetPanel();
+			}
+		}
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			// Makes sure game is over before game can be exited
+			if(p.isDead()) {
+				System.exit(0);
+			}
 		}
 	}
 	@Override

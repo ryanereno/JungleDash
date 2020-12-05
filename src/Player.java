@@ -39,6 +39,7 @@ public class Player {
 		return y;
 	}
 	public void die() { dead = true; }
+	public void revive() { dead = false; }	// Added this so user can restart the game
 	public boolean isDead() { return dead; }
 
 	// These are used for our JUnit testing
@@ -94,5 +95,5 @@ public class Player {
 		}
 		
 	}
-	
+
 }

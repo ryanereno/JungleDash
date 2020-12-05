@@ -58,4 +58,11 @@ public class GameManager {
 			obstacles.add(new Bird());
 		}
 	}
+
+	// Helps reset the game
+	public void resetGame() {
+		p.revive();
+		obstacles = new LinkedList<>();
+	}
 }
+
