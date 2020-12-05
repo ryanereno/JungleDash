@@ -28,7 +28,7 @@ public class BirdTest {
         Bird bird = new Bird();
 
         // testing until it goes out of bounds
-        for (int i = 0, num = 640; i < 17; i++, num -= 40 ){        // num decreases by 40 because thats the speed we used in update
+        for (int i = 0, num = 650; i < 17; i++, num -= 30 ){        // num decreases by 40 because thats the speed we used in update
             bird.update();
             assert(bird.getX() == num);
         }

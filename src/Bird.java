@@ -58,7 +58,7 @@ public class Bird implements Obstacle {
 	 */
 	@Override
 	public void update() {
-		x -= 40;
+		x -= 30;
 	}
 	
 	/**
