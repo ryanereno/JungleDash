@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  */
 public class Bird implements Obstacle {
 	private int x;               // Bird's x-coordinate
-	private int y;	             // Bird's y-coordinate		
+	private int y;	             // Bird's y-coordinate
 	private int animationIndex;  // Represents the current animation number of the bird
 	Image birdImage1 = new ImageIcon(this.getClass().getResource("bird1.png")).getImage();  // First image/animation for bird
 	Image birdImage2 = new ImageIcon(this.getClass().getResource("bird2.png")).getImage();  // Second image/animation for bird

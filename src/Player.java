@@ -1,9 +1,13 @@
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+
 
 import javax.swing.ImageIcon;
 
+/**
+ * Class that represents the Player of our game
+ * Represents one of the Models in the MVC design pattern
+ */
 public class Player {
 	private int x;
 	private int y;
@@ -20,6 +24,9 @@ public class Player {
 	Image deadPlayer = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_death.png")).getImage();
 	Image duckPlayer = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_duck.png")).getImage();
 
+	/**
+	 * Constructs Player
+	 */
 	public Player() {
 		running = true;
 		dead = false;
@@ -29,35 +36,85 @@ public class Player {
 		y = 213;
 		animationIndex = 1;
 	}
-//	public boolean isRunning() { // if player is not running, they are jumping
-//		return running;
-//	}
+
+	/**
+	 *
+	 * @return x-coordinate of player
+	 */
 	public int getX() {
 		return x;
 	}
+
+	/**
+	 *
+	 * @return y-coordinate of player
+	 */
 	public int getY() {
 		return y;
 	}
+
+	/**
+	 * Sets player to dead state
+	 */
 	public void die() { dead = true; }
+
+	/**
+	 * Sets player to alive state
+	 */
 	public void revive() { dead = false; }	// Added this so user can restart the game
+
+	/**
+	 *
+	 * @return whether the player is in the dead state or not
+	 */
 	public boolean isDead() { return dead; }
 
 	// These are used for our JUnit testing
+
+	/**
+	 *
+	 * @return The players running state
+	 */
 	public boolean isRunning(){return running;}
+
+	/**
+	 *
+	 * @return The players ducking state
+	 */
 	public boolean isDucking(){return ducking;}
+
+	/**
+	 *
+	 * @return The players jumping state
+	 */
 	public boolean isJumping(){return jumping;}
 
+	/**
+	 * Makes the Player jump by switching the states of
+	 * running and jumping and changing the Y-coordinate
+	 */
 	public void jump() {
 		running = false;
 		jumping = true;
 		y = 180;				// After jumping, change the player's height
 	}
+
+	/**
+	 * Sets the Player back to the default running position
+	 * Resets the running, jumping and ducking states back to its original values
+	 * Changes the Y-coordinate back to normal
+	 */
 	public void defaultPosition() {
 		running = true;
 		jumping = false;
 		ducking = false;
 		y = 213;				// After player finishes jumping, set y coordinate back to normal
 	}
+
+	/**
+	 * Makes the player duck by switching the states of
+	 * running and ducking and also changes the Y-coordinate
+	 */
 	public void duck(){
 		running = false;
 		ducking = true;
@@ -65,6 +122,12 @@ public class Player {
 	}
 
 
+	/**
+	 * Draws the Player and changes the Image shown depending on
+	 * what current state our player is in
+	 * @param g Graphics
+	 *
+	 */
 	public void draw(Graphics g) {
 		if(running) {
 			if(animationIndex == 1) {

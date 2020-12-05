@@ -23,6 +23,8 @@ public class Ground {
 		width = 384;           
 	}
 
+
+
 	/**
 	 * Updates the x-position of each groundImage to be based around, in order to create the animation of the ground moving forward
 	 */
