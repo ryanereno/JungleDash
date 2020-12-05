@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 public class Ground {
 	private int x;		  // determines how far along the screen each groundImage should be drawn 
 	private int y;		  // y-coordinate to draw each groundImage
-	private int width;    // represents how wide each groundImage is
-	Image groundImage = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();
-	Image backgroundImage = new ImageIcon(this.getClass().getResource("Background.png")).getImage();
+	private int width;        // represents how wide each groundImage is
+	Image groundImage = new ImageIcon(this.getClass().getResource("Ground.png")).getImage();         // Image for the ground
+	Image backgroundImage = new ImageIcon(this.getClass().getResource("Background.png")).getImage(); // Image for the background
 
 	/**
 	 * Constructs the Ground object
