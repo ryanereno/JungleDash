@@ -28,7 +28,7 @@ public class Ground {
 	 */
 	public void update() {
 		x += 12;    			// add 12 to x (1/128 the size of the entire ground). The number 12 is arbitrary, and was picked to make ground animation look nice
-		if (x >= 1152) {        // if x exceeds the x-coordinate of the 4th ground image, which will represent the edge of the screen, reset it to 0
+		if (x >= 1152) {                // if x exceeds the x-coordinate of the 4th ground image, which will represent the edge of the screen, reset it to 0
 			x = 0;
 		}
 	}
