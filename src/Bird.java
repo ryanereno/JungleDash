@@ -24,7 +24,7 @@ public class Bird implements Obstacle {
 	}
 
 	/**
-	 * Checks and returns if the Bird is out of bounds
+	 * @return if the Bird is out of bounds
 	 */
 	@Override
 	public boolean outOfBounds() {
