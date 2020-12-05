@@ -1,19 +1,25 @@
 import javax.swing.*;
 
+/**
+ * GameFrame class that creates the frame of the game and starts the program
+ */
 public class GameFrame extends JFrame {
-
+	/**
+	 * Constructs GameFrame object
+	 */
 	public GameFrame() {
 		super("Jungle Dash");
 		setSize(650, 322);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+
 		Player p = new Player();
 		Ground g = new Ground();
 		GameManager m = new GameManager(p);
 		GamePanel panel = new GamePanel(p, m, g);
 		StartPanel start = new StartPanel(g);
-		//Added button in GameFrame instead of StartPanel so that it can be used to activate the game
-		//Button is transparent and takes up whole screen so that user can click anywhere to start
+
+		// Button is added to allow user to start game
 		JButton startButton = new JButton("Start game");
 		startButton.setOpaque(false);
 		startButton.setContentAreaFilled(false);
@@ -23,11 +29,17 @@ public class GameFrame extends JFrame {
 		startButton.addActionListener(event -> {
 			startGame(start, panel);
 		});
+
 		add(start);
 		setVisible(true);
 	}
 
-	//Added this so that game starts only when user clicks the screen
+	/**
+	 * Transitions title panel to game panel and starts the game for the user
+	 *
+	 * @param start the panel that contains the title screen
+	 * @param panel the panel that contains the game screen
+	 */
 	public void startGame(StartPanel start, GamePanel panel) {
 		start.setVisible(false);
 		add(panel);

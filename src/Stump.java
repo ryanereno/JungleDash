@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
  * Class that represents a stump obstacle that the user must jump over to not collide with it
  * Represents one of the Models in the MVC design pattern
  */
-
 public class Stump implements Obstacle {
 	private int x;
 	private int y;
@@ -21,19 +20,22 @@ public class Stump implements Obstacle {
 	}
 
 	/**
+	 * Checks to see if Stump is offscreen
+	 *
 	 * @return if the Stump is out of bounds
 	 */
 	@Override
 	public boolean outOfBounds() {
-		if (x < -20) { // if most of the stump is offscreen, it is out of bounds
+		if (x < -20) {		// If most of the stump is offscreen, it is out of bounds
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * @param g Graphics
 	 * Draws the Stump
+	 *
+	 * @param g Graphics object that draws the stump
 	 */
 	@Override
 	public void draw(Graphics g) {
@@ -50,30 +52,37 @@ public class Stump implements Obstacle {
 	}
 
 	/**
-	 * @param playerX represents the Player's x-coordinate
-	 * @param playerY represents the Player's y-coordinate
 	 * Checks if Player's x and y-coordinates are approximately at the Stumps x and y-coordinates to check and return if they collided
+	 *
+	 * @param playerX the Player's x-coordinate
+	 * @param playerY the Player's y-coordinate
 	 */
 	public boolean checkCollision(int playerX, int playerY) {
-		if ((Math.abs(playerX - x)) <= 24 && (playerY > y)) { // if player's model is in the hitbox of stump,
-		                								      // they collided
-			return true;
+		if ((Math.abs(playerX - x)) <= 24 && (playerY > y)) { // If player's model is in the hitbox of stump,
+			return true;									  // they collided
 		}
 		return false;
 	}
 
-	// the following three methods are used for JUnit testing purposes
+	// Note: The following three methods are used for JUnit testing purposes
 	/**
+	 * Returns the x-coordinate of Stump
+	 *
 	 * @return x-coordinate of Stump
 	 */
 	public int getX(){ return x;}
+
 	/**
+	 * Returns the y-coordinate of Stump
+	 *
 	 * @return y-coordinate of Stump
 	 */
 	public int getY(){ return y;}
+
 	/**
-	 * @param x x-coordinate to set Stump's x-coordinate to
 	 * Sets x-coordinate of Stump to parameter's x
+	 *
+	 * @param x x-coordinate to set Stump's x-coordinate to
 	 */
 	public void setX(int x){ this.x = x;}
 }
