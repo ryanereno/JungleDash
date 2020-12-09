@@ -180,9 +180,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	 * When a key is pressed it adds the message to the queue
 	 * for the controller to use
 	 * @param e
-	 *
-	 * Important to note there is a glitch where if you press the jump
-	 * or duck buttons after dying then the game will not reset
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {				// note, there is a slight delay between space bar being press and jumping
@@ -212,11 +209,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				allow the user to increase the speed (and therefore difficulty). It may be risky to do this since the
 				program can crash in some cases.
 
-				IMPORTANT NOTE. IF YOU PRESS JUMP OR DUCK AGAIN AFTER DYING THE GAME WILL NOT ALLOW YOU TO RESET
+
 			 */
 			if(p.isDead()) {
 				try {
 					queue.put(new ResetGameMessage());
+					resetGame();
 				}
 				catch (InterruptedException exception){}
 

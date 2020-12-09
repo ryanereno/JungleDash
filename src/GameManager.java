@@ -30,9 +30,9 @@ public class GameManager {
 		obstacles = new LinkedList<Obstacle>();
 		this.queue = queue;
 		this.panel = panel;
-		valves.add(new DoJumpValve());
-		valves.add(new DoDuckValve());
-		valves.add(new ResetGameValve());
+		valves.add(new DoJumpValve(p));
+		valves.add(new DoDuckValve(p));
+		valves.add(new ResetGameValve(p));
 	}
 
 
@@ -55,32 +55,6 @@ public class GameManager {
 
 				if (response != ValvesResponse.MISS)
 					break;
-			}
-
-			if (message.getClass() == JumpMessage.class) {
-				p.jump();
-				new java.util.Timer().schedule(            // set a delay for how long the Player is in the air before returning back to the ground
-						new java.util.TimerTask() {
-							@Override
-							public void run() {
-								p.defaultPosition();
-							}
-						},
-						400
-				);
-			} else if (message.getClass() == DuckMessage.class) {
-				p.duck();
-				new java.util.Timer().schedule(            // set a delay for how long the Player is in the air before returning back to the ground
-						new java.util.TimerTask() {
-							@Override
-							public void run() {
-								p.defaultPosition();
-							}
-						},
-						400
-				);
-			} else if (message.getClass() == ResetGameMessage.class) {
-				resetGame();
 			}
 		}
 	}
