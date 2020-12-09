@@ -1,6 +1,5 @@
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -10,7 +9,6 @@ import java.util.concurrent.BlockingQueue;
  * It also contains a Queue of obstacles that are continually added and removed as the game progresses.
  */
 public class GameManager {
-	private Queue<Obstacle> obstacles;
 	private Player p;
 	GamePanel panel;
 	BlockingQueue<Message> queue;
@@ -27,7 +25,6 @@ public class GameManager {
 	 */
 	public GameManager(Player p, GamePanel panel, BlockingQueue<Message> queue) {
 		this.p = p;
-		obstacles = new LinkedList<Obstacle>();
 		this.queue = queue;
 		this.panel = panel;
 		valves.add(new DoJumpValve(p));
