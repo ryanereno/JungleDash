@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * GameFrame class that creates the frame of the game and starts the program
@@ -6,6 +8,8 @@ import javax.swing.*;
 public class GameFrame extends JFrame {
 	/**
 	 * Constructs GameFrame object
+	 * We have a Start Screen but as of right now it wont go to the
+	 * game screen after clicking start
 	 */
 	public GameFrame() {
 		super("Jungle Dash");
@@ -15,8 +19,9 @@ public class GameFrame extends JFrame {
 
 		Player p = new Player();
 		Ground g = new Ground();
-		GameManager m = new GameManager(p);
-		GamePanel panel = new GamePanel(p, m, g);
+		BlockingQueue<Message> queue = new LinkedBlockingQueue();
+		GamePanel panel = new GamePanel(p, g, queue);
+		GameManager m = new GameManager(p, panel, queue);
 		StartPanel start = new StartPanel(g);
 
 		// Button is added to allow user to start game
@@ -26,12 +31,15 @@ public class GameFrame extends JFrame {
 		startButton.setBorderPainted(false);
 		start.add(startButton);
 		startButton.setFocusable(false);
+
 		startButton.addActionListener(event -> {
-			startGame(start, panel);
+			startGame(start, panel, m);
 		});
 
-		add(start);
+
+		//add(start);
 		setVisible(true);
+		startGame(start, panel, m);
 	}
 
 	/**
@@ -39,12 +47,13 @@ public class GameFrame extends JFrame {
 	 *
 	 * @param start the panel that contains the title screen
 	 * @param panel the panel that contains the game screen
+	 * @param m		the gamemanager that contains the controller
 	 */
-	public void startGame(StartPanel start, GamePanel panel) {
+	public void startGame(StartPanel start, GamePanel panel, GameManager m) {
 		start.setVisible(false);
 		add(panel);
 		addKeyListener(panel);
-		panel.startGame();
+		m.mainLoop();
 	}
 
 	public static void main(String args[]) {

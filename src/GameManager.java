@@ -1,7 +1,7 @@
-import java.awt.Graphics;
-import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Class is the controller of MVC pattern
@@ -12,89 +12,111 @@ import java.util.Queue;
 public class GameManager {
 	private Queue<Obstacle> obstacles;
 	private Player p;
+	GamePanel panel;
+	BlockingQueue<Message> queue;
+
+	private List<Valve> valves = new LinkedList<Valve>();
+
 
 	/**
 	 * Constructs a GameManager
 	 *
 	 * @param p Player
+	 * @param panel
+	 * @param queue
 	 */
-	public GameManager(Player p) {
+	public GameManager(Player p, GamePanel panel, BlockingQueue<Message> queue) {
 		this.p = p;
 		obstacles = new LinkedList<Obstacle>();
+		this.queue = queue;
+		this.panel = panel;
+		valves.add(new DoJumpValve());
+		valves.add(new DoDuckValve());
+		valves.add(new ResetGameValve());
 	}
 
-	/**
-	 * Tells player to Jump
-	 */
-	public void playerJump() {
-		p.jump();
-	}
 
 	/**
-	 * Tells player to go back to its default running position
-	 */
-	public void playerDefault() {
-		p.defaultPosition();
-	}
-
-	/**
-	 * Tells player to duck
-	 */
-	public void playerDuck() { p.duck(); }
-
-	/**
-	 * Updates all the obstacles currently projected on the screen (changes the position of obstacles) and
-	 * checks for a collision between an obstacle and player.
-	 * If a collision is found, then it kills the player.
-	 * Also checks if obstacle is off the screen (obstacle is removed from the Queue if it is).
+	 * This method is run from the mainloop
+	 * It continually checks valve response and
+	 * takes in messages then tells the model what to do
+	 *
 	 */
 	public void update() {
-		for (Obstacle obs : obstacles) {
-			obs.update();
-			if (obs.checkCollision(p.getX(), p.getY())) { // If player collided with object, they are dead
-				p.die();
+		ValvesResponse response = ValvesResponse.EXECUTED;
+		Message message = null;
+		while( response != ValvesResponse.FINISH) {
+			try {
+				message = queue.take();
+			} catch (InterruptedException exception) {}
+
+			for (Valve valve : valves) {
+				response = valve.execute(message);
+
+				if (response != ValvesResponse.MISS)
+					break;
+			}
+
+			if (message.getClass() == JumpMessage.class) {
+				p.jump();
+				new java.util.Timer().schedule(            // set a delay for how long the Player is in the air before returning back to the ground
+						new java.util.TimerTask() {
+							@Override
+							public void run() {
+								p.defaultPosition();
+							}
+						},
+						400
+				);
+			} else if (message.getClass() == DuckMessage.class) {
+				p.duck();
+				new java.util.Timer().schedule(            // set a delay for how long the Player is in the air before returning back to the ground
+						new java.util.TimerTask() {
+							@Override
+							public void run() {
+								p.defaultPosition();
+							}
+						},
+						400
+				);
+			} else if (message.getClass() == ResetGameMessage.class) {
+				resetGame();
 			}
 		}
-		if (obstacles.peek() == null) {
-			// Do nothing if there's nothing in the queue
-		} else if (obstacles.peek().outOfBounds()) {
-			obstacles.remove();
-		}
 	}
 
 	/**
-	 * Draws all the obstacles to the screen
-	 *
-	 * @param g Graphics objects that draws all the obstacles to the screen
+	 * Tells the panel the game is starting
 	 */
-	public void draw(Graphics g) {
-		try {
-			for (Obstacle obs : obstacles) {
-				obs.draw(g);
-			}
-		} catch (ConcurrentModificationException e) {
-			// Don't draw if we are currently iterating through the Queue
-		}
+	public void startGame(){
+		panel.startGame();
 	}
 
 	/**
-	 * Randomly generates either a bird or stump obstacle
-	 */
-	public void addObstacle() {
-		int random = (int) (Math.random() * 2);
-		if (random == 0) {
-			obstacles.add(new Stump());
-		} else {
-			obstacles.add(new Bird());
-		}
-	}
-
-	/**
-	 * Resets Player and creates a new LinkedList for obstacles Queue to start a new game
+	 * Resets Player and tells panel to reset
 	 */
 	public void resetGame() {
 		p.revive();
-		obstacles = new LinkedList<>();
+		panel.resetGame();
+
+	}
+
+	/**
+	 * This is the controllers main loop
+	 */
+
+	public void mainLoop(){
+		startGame();
+
+		while(true){
+			this.update();								//checks the BlockingQueue
+			try {
+				Thread.sleep(100);				// put a slight delay
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 }
 
