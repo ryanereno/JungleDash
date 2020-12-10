@@ -15,13 +15,12 @@ public class GameManager {
 
 	private List<Valve> valves = new LinkedList<Valve>();
 
-
 	/**
 	 * Constructs a GameManager
 	 *
 	 * @param p Player
-	 * @param panel
-	 * @param queue
+	 * @param panel the panel that contains the game screen
+	 * @param queue the BlockingQueue used by the game
 	 */
 	public GameManager(Player p, GamePanel panel, BlockingQueue<Message> queue) {
 		this.p = p;
@@ -32,17 +31,15 @@ public class GameManager {
 		valves.add(new ResetGameValve(p));
 	}
 
-
 	/**
 	 * This method is run from the mainloop
 	 * It continually checks valve response and
 	 * takes in messages then tells the model what to do
-	 *
 	 */
 	public void update() {
 		ValvesResponse response = ValvesResponse.EXECUTED;
 		Message message = null;
-		while( response != ValvesResponse.FINISH) {
+		while(response != ValvesResponse.FINISH) {
 			try {
 				message = queue.take();
 			} catch (InterruptedException exception) {}
@@ -75,18 +72,15 @@ public class GameManager {
 	/**
 	 * This is the controllers main loop
 	 */
-
 	public void mainLoop(){
 		startGame();
-
 		while(true){
-			this.update();								//checks the BlockingQueue
+			this.update();							// Checks the BlockingQueue
 			try {
-				Thread.sleep(100);				// put a slight delay
+				Thread.sleep(100);			// Puts a slight delay
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 }

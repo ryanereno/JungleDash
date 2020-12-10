@@ -8,8 +8,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameFrame extends JFrame {
 	/**
 	 * Constructs GameFrame object
-	 * We have a Start Screen but as of right now it wont go to the
-	 * game screen after clicking start
 	 */
 	public GameFrame() {
 		super("Jungle Dash");
@@ -31,15 +29,19 @@ public class GameFrame extends JFrame {
 		startButton.setBorderPainted(false);
 		start.add(startButton);
 		startButton.setFocusable(false);
-
+		// Thread is created and used in action listener in order to be able to start the game
 		startButton.addActionListener(event -> {
-			startGame(start, panel, m);
+			Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					startGame(start, panel, m);
+				}
+			});
+			thread.start();
 		});
 
-
-		//add(start);
+		add(start);
 		setVisible(true);
-		startGame(start, panel, m);
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class GameFrame extends JFrame {
 	 *
 	 * @param start the panel that contains the title screen
 	 * @param panel the panel that contains the game screen
-	 * @param m		the gamemanager that contains the controller
+	 * @param m the GameManager that contains the controller
 	 */
 	public void startGame(StartPanel start, GamePanel panel, GameManager m) {
 		start.setVisible(false);

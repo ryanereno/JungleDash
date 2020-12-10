@@ -11,17 +11,16 @@ import javax.swing.JPanel;
 
 /**
  * GamePanel class that creates the game screen
- * This class is one of the Views in the MVC design patteern
+ * This class is one of the Views in the MVC design pattern
  */
-// This class represents the view
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private Player p;		// The player character
 	private Ground ground;		// The ground of the game
-	Queue<Obstacle> obstacles;
+	Queue<Obstacle> obstacles;	// Queue for obstacles
 	Thread thread;
 	private int score;			// Keeps track of game score
-	private boolean displayDeath;		//Indicates whether player is dead
-	BlockingQueue<Message> queue;
+	private boolean displayDeath;		// Indicates whether player is dead
+	BlockingQueue<Message> queue;	// Queue for game messages
 
 
 	/**
@@ -39,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	}
 
 	/**
-	 * add obstacles to our obstacle queue
+	 * Adds obstacles to obstacle queue
 	 */
 	public void addObstacle() {
 		int random = (int) (Math.random() * 2);
@@ -69,9 +68,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	}
 
 	/**
-	 * Start game function
+	 * Starts game function
 	 */
-	public void startGame(){
+	public void startGame() {
 		score = 0;
 		displayDeath = false;
 		thread = new Thread(this);
@@ -86,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				},
 				0, 1500
 		);
-
 	}
 
 	/**
@@ -117,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			g.drawString("or Backspace to quit", 227, 145);
 	    }
 	}
+
 	/**
 	 * Updates the game
 	 */
@@ -125,12 +124,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		updateObstacles();
 		ground.update();
 	}
+
 	/**
 	 * Updates the score of the game
 	 */
 	public void updateScore() {
 		score++;
 	}
+
 	/**
 	 * Invokes death screen
 	 */
@@ -159,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			updateGame();
 			repaint();
 			try {
-				Thread.sleep(100);				// put a slight delay
+				Thread.sleep(100);				// Puts a slight delay
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -170,6 +171,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 
 	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -177,12 +179,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	}
 
 	/**
-	 * When a key is pressed it adds the message to the queue
-	 * for the controller to use
-	 * @param e
+	 * When a key is pressed it adds the message to the queue for the controller to use
+	 *
+	 * @param e the key pressed by the user
 	 */
 	@Override
-	public void keyPressed(KeyEvent e) {				// note, there is a slight delay between space bar being press and jumping
+	public void keyPressed(KeyEvent e) {				// Note, there is a slight delay between space bar being press and jumping
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {		// spam clicking jump doesn't work and is unpredictable
 			//manager.playerJump();
 			try {
@@ -197,27 +199,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				queue.put(new DuckMessage());
 			}
 			catch (InterruptedException exception){}
-
 		}
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			/*
-				Something interesting to note when the if-statement is not added: If Enter is pressed in the middle of
-				the game, the game resets, but it goes faster. If you press Enter multiple times, the game goes even
-				faster. The program may crash sometimes when Enter is pressed multiple times.
-
-				The if-statement was added to keep the game consistent with its speed, but it could be taken out to
-				allow the user to increase the speed (and therefore difficulty). It may be risky to do this since the
-				program can crash in some cases.
-
-
-			 */
 			if(p.isDead()) {
 				try {
 					queue.put(new ResetGameMessage());
 					resetGame();
 				}
 				catch (InterruptedException exception){}
-
 			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
@@ -227,6 +216,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			}
 		}
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

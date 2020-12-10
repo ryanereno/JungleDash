@@ -15,7 +15,7 @@ public class Player {
 	private boolean dead;
 	private boolean ducking;
 	private boolean jumping;
-	private int animationIndex;  // keeps track of what running animation we currently have
+	private int animationIndex;  // Keeps track of what running animation we currently have
 	Image runPlayer1 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run1.png")).getImage();
 	Image runPlayer2 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run2.png")).getImage();
 	Image runPlayer3 = new ImageIcon(this.getClass().getResource("Woodcutter/woodcutter_run3.png")).getImage();
@@ -38,6 +38,7 @@ public class Player {
 	}
 
 	/**
+	 * Gets the x-coordinate of player
 	 *
 	 * @return x-coordinate of player
 	 */
@@ -46,6 +47,7 @@ public class Player {
 	}
 
 	/**
+	 * Gets the y-coordinate of player
 	 *
 	 * @return y-coordinate of player
 	 */
@@ -64,6 +66,7 @@ public class Player {
 	public void revive() { dead = false; }	// Added this so user can restart the game
 
 	/**
+	 * Checks whether player is dead or alive
 	 *
 	 * @return whether the player is in the dead state or not
 	 */
@@ -72,26 +75,29 @@ public class Player {
 	// These are used for our JUnit testing
 
 	/**
+	 * Checks whether player is running
 	 *
-	 * @return The players running state
+	 * @return The player's running state
 	 */
 	public boolean isRunning(){return running;}
 
 	/**
+	 * Checks whether player is ducking
 	 *
-	 * @return The players ducking state
+	 * @return The player's ducking state
 	 */
 	public boolean isDucking(){return ducking;}
 
 	/**
+	 * Checks whether player is jumping
 	 *
-	 * @return The players jumping state
+	 * @return The player's jumping state
 	 */
 	public boolean isJumping(){return jumping;}
 
 	/**
 	 * Makes the Player jump by switching the states of
-	 * running and jumping and changing the Y-coordinate
+	 * running and jumping and changing the y-coordinate
 	 */
 	public void jump() {
 		running = false;
@@ -125,8 +131,8 @@ public class Player {
 	/**
 	 * Draws the Player and changes the Image shown depending on
 	 * what current state our player is in
-	 * @param g Graphics
 	 *
+	 * @param g Graphics object that draws the player
 	 */
 	public void draw(Graphics g) {
 		if(running) {

@@ -19,8 +19,6 @@ public class Stump implements Obstacle {
 		y = 210;
 	}
 
-
-
 	/**
 	 * Checks to see if Stump is offscreen
 	 *

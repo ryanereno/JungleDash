@@ -28,7 +28,7 @@ public class StartPanel extends JPanel {
         g.setColor(Color.WHITE);
         // Title
         g.setFont(new Font("Serif", Font.BOLD, 35));
-        g.drawString("Jungle Dash!", 225, 90);
+        g.drawString("Jungle Dash!", 220, 90);
         // Start game
         g.setFont(new Font("Serif", Font.BOLD, 20));
         g.drawString("Click anywhere to start game", 190,150);
